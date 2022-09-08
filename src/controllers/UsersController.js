@@ -13,4 +13,18 @@ module.exports = {
     response.writeHead(200, { "Content-Type": "text/html" });
     response.end(JSON.stringify(users));
   },
+
+  getUserById(request, response) {
+    const { id } = request.params;
+
+    const user = users.find((user) => user.id === Number(id));
+
+    if (!user) {
+      response.writeHead(404, { "Content-Type": "text/html" });
+      response.end(JSON.stringify({ error: "User not found" }));
+    } else {
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(JSON.stringify(user));
+    }
+  },
 };
